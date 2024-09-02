@@ -3,18 +3,22 @@ import dotenv
 import pyupbit
 import os
 import time,datetime
+import requests
 
 
+#setup values
 dotenv.load_dotenv()
 hostenv = os.getenv("DB_HOST")
 userenv = os.getenv("DB_USER")
 passwdenv = os.getenv("DB_PASSWORD")
 dbnameenv = os.getenv("DB_DATABASE")
 charsetenv = os.getenv("DB_CHARSET")
-
 nowt = datetime.datetime.now()
 now = nowt.strftime("%Y-%m-%d %H:%M:%S")
+myip = requests.get('http://ip.jsontest.com').json()['ip']
 
+
+#exp functions
 def checkwallet(uno): #지갑 내용 조회
     global key1, key2, walletitems
     walletitems = []
@@ -32,7 +36,7 @@ def checkwallet(uno): #지갑 내용 조회
             upbit = pyupbit.Upbit(key1,key2)
             walletitems = upbit.get_balances()
     except Exception as e:
-        msg = "업비트 지갑 조회 오류 "+now+" ("+str(e)+")"
+        msg = "업비트 지갑 조회 오류 " + now + " (" + str(e) + ") at "+myip
         errlog(msg, uno)
     finally:
         cur01.close()
@@ -56,7 +60,7 @@ def checkwalletwon(uno): #지갑내 원화 조회
             upbit = pyupbit.Upbit(key1,key2)
             walletwon = round(upbit.get_balance("KRW"))
     except Exception as e:
-        msg = "업비트 지갑 원화 조회 오류 " + now + " (" + str(e) + ")"
+        msg = "업비트 지갑 원화 조회 오류 " + now + " (" + str(e) + ") at "+myip
         errlog(msg, uno)
     finally:
         cur02.close()
@@ -65,19 +69,20 @@ def checkwalletwon(uno): #지갑내 원화 조회
 
 
 def getsetup(uno): # 설정 조회
+    global setupdata
     db03 = pymysql.connect(host=hostenv, user=userenv, password=passwdenv, db=dbnameenv, charset=charsetenv)
     cur03 = db03.cursor()
     try:
         sql = "SELECT bidCoin, initAsset, bidInterval, bidRate, askRate, activeYN, custKey from tradingSetup where userNo=%s and attrib not like %s"
         cur03.execute(sql, (uno, '%XXXUP'))
-        data = list(cur03.fetchone())
+        setupdata = list(cur03.fetchone())
     except Exception as e:
-        msg = "설정 조회 오류 " + now + " (" + str(e) + ")"
+        msg = "설정 조회 오류 " + now + " (" + str(e) + ") at "+myip
         errlog(msg, uno)
     finally:
         cur03.close()
         db03.close()
-        return data
+        return setupdata
 
 
 def errlog(errmsg,uno):
@@ -94,4 +99,29 @@ def errlog(errmsg,uno):
         cur04.close()
         db04.close()
 
+
+def clearcache():
+    db05 = pymysql.connect(host=hostenv, user=userenv, password=passwdenv, db=dbnameenv, charset=charsetenv)
+    cur05 = db05.cursor()
+    sql = "RESET QUERY CACHE"
+    cur05.execute(sql)
+    cur05.close()
+    db05.close()
+
+
+def getsvruser(svrNo):
+    global userdata
+    db06 = pymysql.connect(host=hostenv, user=userenv, password=passwdenv, db=dbnameenv, charset=charsetenv)
+    cur06 = db06.cursor()
+    try:
+        sql = "SELECT userNo from tradingSetup where attrib not like %s and serverNo=%s"
+        cur06.execute(sql,('%XXXUP', svrNo))
+        userdata = cur06.fetchall()
+    except Exception as e:
+        msg = "서버별 사용자 조회 오류 " + now + " (" + str(e) + ") at "+myip
+        errlog(msg, 0)
+    finally:
+        cur06.close()
+        db06.close()
+        return userdata
 
