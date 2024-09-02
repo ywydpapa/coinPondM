@@ -7,18 +7,10 @@ import datetime,time
 
 #val setting
 dotenv.load_dotenv()
-hostenv = os.getenv("DB_HOST")
-userenv = os.getenv("DB_USER")
-passwdenv = os.getenv("DB_PASSWORD")
-charsetenv = os.getenv("DB_CHARSET")
 svrNo = os.getenv("SVR_NO")
 serVer = os.getenv("SERVICE_VER")
 
 #function Set
-def trademain():
-    print(hostenv)
-
-
 def service_restart():
     tstamp = datetime.now()
     print("Service Restart : ", tstamp)
@@ -39,6 +31,12 @@ def service_start():
 #Main Process
 
 if __name__ == '__main__':
-    dbconn.clearcache()
+    while True:
+        users = dbconn.getsvruser(svrNo) # 할당 사용자 조회
+        for user in users:
+            setups = dbconn.getsetup(user[0])
+            print(setups)
+        dbconn.clearcache() # 캐쉬 삭제
+        time.sleep(10)
 
 

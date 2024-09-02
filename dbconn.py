@@ -10,7 +10,7 @@ import requests
 dotenv.load_dotenv()
 hostenv = os.getenv("DB_HOST")
 userenv = os.getenv("DB_USER")
-passwdenv = os.getenv("DB_PASSWORD")
+passwdenv = os.getenv("DB_PASSWD")
 dbnameenv = os.getenv("DB_DATABASE")
 charsetenv = os.getenv("DB_CHARSET")
 nowt = datetime.datetime.now()
@@ -73,9 +73,9 @@ def getsetup(uno): # 설정 조회
     db03 = pymysql.connect(host=hostenv, user=userenv, password=passwdenv, db=dbnameenv, charset=charsetenv)
     cur03 = db03.cursor()
     try:
-        sql = "SELECT bidCoin, initAsset, bidInterval, bidRate, askRate, activeYN, custKey from tradingSetup where userNo=%s and attrib not like %s"
+        sql = "SELECT * from multiSetup where userNo=%s and attrib not like %s"
         cur03.execute(sql, (uno, '%XXXUP'))
-        setupdata = list(cur03.fetchone())
+        setupdata = cur03.fetchall()
     except Exception as e:
         msg = "설정 조회 오류 " + now + " (" + str(e) + ") at "+myip
         errlog(msg, uno)

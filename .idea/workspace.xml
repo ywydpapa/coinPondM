@@ -38,6 +38,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "master",
@@ -96,7 +98,7 @@
       <option name="presentableId" value="Default" />
       <updated>1725102365221</updated>
       <workItem from="1725102368388" duration="66000" />
-      <workItem from="1725252599754" duration="8368000" />
+      <workItem from="1725252599754" duration="10482000" />
     </task>
     <task id="LOCAL-00001" summary="데이터베이스 파일 수정">
       <option name="closed" value="true" />
@@ -106,7 +108,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725260012641</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="데이터베이스 파일 수정">
+      <option name="closed" value="true" />
+      <created>1725261662181</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1725261662181</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,18 +126,7 @@
     <MESSAGE value="데이터베이스 파일 수정" />
     <option name="LAST_COMMIT_MESSAGE" value="데이터베이스 파일 수정" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/coinPondM$main.coverage" NAME="main 커버리지 결과" MODIFIED="1725254021253" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/coinPondM$main.coverage" NAME="main 커버리지 결과" MODIFIED="1725264623579" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
