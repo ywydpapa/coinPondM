@@ -12,7 +12,7 @@ serVer = os.getenv("SERVICE_VER")
 
 #function Set
 def service_restart():
-    tstamp = datetime.now()
+    tstamp = datetime.datetime.now()
     print("Service Restart : ", tstamp)
     myip = requests.get('http://ip.jsontest.com').json()['ip']
     msg = "Server " + str(svrNo) + " Multi Service Restart : " + str(tstamp) + "  at  " + str(myip) + " Service Ver : "+ str(serVer)
@@ -21,7 +21,7 @@ def service_restart():
 
 
 def service_start():
-    tstamp = datetime.now()
+    tstamp = datetime.datetime.now()
     print("Service Start : ", tstamp)
     myip = requests.get('http://ip.jsontest.com').json()['ip']
     msg = "Server " + str(svrNo) + " Multi Service Start : " + str(tstamp) + "  at  " + str(myip) + " Service Ver : "+ str(serVer)
@@ -31,6 +31,7 @@ def service_start():
 #Main Process
 
 if __name__ == '__main__':
+    service_start()
     while True:
         users = dbconn.getsvruser(svrNo) # 할당 사용자 조회
         for user in users:
